@@ -1,7 +1,7 @@
 // 租户ID
 export const TENANT_ID = import.meta.env.VITE_TENANT_ID || 10258;
 // 模板ID
-export const TEMPLATE_ID = import.meta.env.VITE_TEMPLATE_ID || 10258;
+export const TEMPLATE_ID = 10258;
 // appSecret
 export const APP_SECRET = import.meta.env.VITE_APP_SECRET || '';
 // 开发商官方网站
