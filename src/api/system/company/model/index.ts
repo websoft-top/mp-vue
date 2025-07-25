@@ -1,0 +1,187 @@
+import type { PageParam } from '@/api';
+import type {Menu} from "@/api/system/menu/model";
+
+/**
+ * 企业信息
+ */
+export interface Company {
+  // 企业id
+  companyId?: number;
+  // 应用类型
+  type?: number;
+  // 插件ID
+  menuId?: number;
+  // 企业简称
+  shortName?: string;
+  // 企业全称
+  companyName?: string;
+  // 企业标识
+  companyCode?: string;
+  // 栏目分类
+  categoryId?: number;
+  // 应用截图
+  files?: string;
+  // 类型 10企业 20政府单位
+  companyType?: string;
+  // 企业类型多选(已废弃)
+  companyTypeMultiple?: string;
+  // 应用标识
+  companyLogo?: string;
+  // 封面图
+  image?: string;
+  // 应用详情
+  content?: string;
+  // 应用类型
+  appType?: string;
+  // 免费域名
+  freeDomain?: string;
+  // 绑定域名
+  domain?: string;
+  // 联系电话
+  phone?: string;
+  // 座机电话
+  tel?: string;
+  // 邮箱
+  email?: string;
+  // 发票抬头
+  invoiceHeader?: string;
+  // 企业法人
+  businessEntity?: string;
+  // 服务开始时间
+  startTime?: string;
+  // 服务到期时间
+  expirationTime?: string;
+  // 即将过期
+  soon?: number;
+  // 应用版本 10体验版 20授权版 30永久授权
+  version?: string;
+  // 版本名称
+  versionName?: string;
+  // 版本号
+  versionCode?: string;
+  // 销售价格
+  price?: number;
+  // 计费方式(0免费 1一次性 2按年 3按月 4按天)
+  chargingMethod?: number;
+  // 成员数量(人数上限)
+  members?: number;
+  // 成员数量(当前)
+  users?: number;
+  // 行业类型(父级)
+  industryParent?: string;
+  // 行业类型(子级)
+  industryChild?: string;
+  // 部门数量
+  departments?: number;
+  // 存储空间
+  storage?: string;
+  // 存储空间(上限)
+  storageMax?: string;
+  // 所在国家
+  country?: string;
+  // 所在省份
+  province?: string;
+  // 所在城市
+  city?: string;
+  // 所在辖区
+  region?: string;
+  // 街道地址
+  address?: string;
+  // 详细
+  lngAndLat?: string;
+  // 经度
+  longitude?: string;
+  // 纬度
+  latitude?: string;
+  // 备注
+  comments?: string;
+  // 是否实名认证
+  authentication?: number;
+  // 企业默认主体
+  authoritative?: boolean;
+  // 主控节点
+  serverUrl?: string;
+  // 模块节点
+  modulesUrl?: string;
+  // 重定向
+  redirectUrl?: string;
+  // request合法域名
+  requestUrl?: string;
+  // socket合法域名
+  socketUrl?: string;
+  // 总后台管理入口
+  adminUrl?: string;
+  // 商户端入口
+  merchantUrl?: string;
+  // 网站域名
+  websiteUrl?: string;
+  // 微信小程序二维码
+  mpWeixinCode?: string;
+  // 支付宝小程序二维码
+  mpAlipayCode?: string;
+  // H5端应用二维码
+  h5Code?: string;
+  // 安卓APP二维码
+  androidUrl?: string;
+  // 苹果APP二维码
+  iosUrl?: string;
+  // 是否推荐
+  recommend?: number;
+  // 点赞数量
+  likes?: number;
+  // 点击数量
+  clicks?: number;
+  // 购买数量
+  buys?: number;
+  // 评分
+  rate?: number;
+  // 是否含税, 0不含, 1含
+  isTax?: number;
+  // 当前克隆的租户ID
+  planId?: number;
+  // 状态
+  status?: number;
+  // 是否隐藏
+  hide?: boolean;
+  // 是否开启网站
+  websiteStatus?: boolean;
+  // 排序号
+  sortNumber?: number;
+  // 商户ID
+  merchantId?: number;
+  // 租户id
+  tid?: number;
+  // 用户ID
+  userId?: number;
+  // 是否官方自营
+  official?: boolean;
+  // 是否删除, 0否, 1是
+  deleted?: number;
+  // 租户id
+  tenantId?: number;
+  // 租户名称
+  tenantName?: string;
+  // 创建时间
+  createTime?: string;
+  // 修改时间
+  updateTime?: string;
+  // 权限
+  authorities?: Menu[];
+}
+
+/**
+ * 企业信息搜索条件
+ */
+export interface CompanyParam extends PageParam {
+  companyId?: number;
+  phone?: string;
+  userId?: string;
+  type?: number;
+  tenantId?: number;
+  version?: number;
+  shortName?: string;
+  companyName?: string;
+  official?: boolean;
+  deleted?: number;
+  keywords?: string;
+}

@@ -1,0 +1,199 @@
+<!-- 编辑弹窗 -->
+<template>
+  <ele-modal
+    :width="600"
+    :visible="visible"
+    :maskClosable="false"
+    :maxable="maxable"
+    :title="'批量更新'"
+    :body-style="{ paddingBottom: '28px' }"
+    @update:visible="updateVisible"
+    @ok="save"
+  >
+    <a-form
+      ref="formRef"
+      :model="form"
+      :rules="rules"
+      :label-col="styleResponsive ? { md: 3, sm: 5, xs: 24 } : { flex: '90px' }"
+      :wrapper-col="
+        styleResponsive ? { md: 24, sm: 24, xs: 24 } : { flex: '1' }
+      "
+    >
+      <a-form-item>
+        <a-alert :message="'提示：每次最多修改 50000 条数据'" banner />
+      </a-form-item>
+      <a-form-item label="选择栏目">
+        <a-tree-select
+          allow-clear
+          :tree-data="navigationList"
+          tree-default-expand-all
+          style="width: 400px"
+          placeholder="请选择栏目"
+          :value="form.categoryId || undefined"
+          :dropdown-style="{ maxHeight: '360px', overflow: 'auto' }"
+          @update:value="(value?: number) => (form.categoryId = value)"
+          @change="onCategoryId"
+        />
+      </a-form-item>
+    </a-form>
+  </ele-modal>
+</template>
+
+<script lang="ts" setup>
+  import { ref, reactive, watch } from 'vue';
+  import { Form, message } from 'ant-design-vue';
+  import { useThemeStore } from '@/store/modules/theme';
+  import { storeToRefs } from 'pinia';
+  import { FormInstance, RuleObject } from 'ant-design-vue/es/form';
+  import { CmsNavigation } from "@/api/cms/cmsNavigation/model";
+  import {updateBatchCmsLink} from "@/api/cms/cmsLink";
+  import {CmsLink} from "@/api/cms/cmsLink/model";
+
+  // 是否是修改
+  const useForm = Form.useForm;
+  // 是否开启响应式布局
+  const themeStore = useThemeStore();
+  const { styleResponsive } = storeToRefs(themeStore);
+
+  const props = defineProps<{
+    // 弹窗是否打开
+    visible: boolean;
+    // 表格选中数据
+    selection?: CmsLink[];
+    // 栏目数据
+    navigationList?: CmsNavigation[];
+  }>();
+
+  const emit = defineEmits<{
+    (e: 'done'): void;
+    (e: 'update:visible', visible: boolean): void;
+  }>();
+
+  // 提交状态
+  const loading = ref(false);
+  // 是否显示最大化切换按钮
+  const maxable = ref(true);
+  // 表格选中数据
+  const formRef = ref<FormInstance | null>(null);
+  const content = ref('');
+
+  // 用户信息
+  const form = reactive<CmsLink>({
+    // 自增ID
+    id: undefined,
+    // 链接名称
+    name: undefined,
+    // 图标
+    icon: undefined,
+    // 链接地址
+    url: undefined,
+    // 链接分类
+    categoryId: undefined,
+    // 应用ID
+    appId: undefined,
+    // 用户ID
+    userId: undefined,
+    // 语言
+    lang: undefined,
+    // 是否推荐
+    recommend: undefined,
+    // 备注
+    comments: undefined,
+    // 排序(数字越小越靠前)
+    sortNumber: undefined,
+    // 是否删除, 0否, 1是
+    deleted: undefined,
+    // 状态, 0正常, 1待确认
+    status: undefined,
+    // 租户id
+    tenantId: undefined,
+    // 创建时间
+    createTime: undefined,
+  });
+
+  /* 更新visible */
+  const updateVisible = (value: boolean) => {
+    emit('update:visible', value);
+  };
+
+  // 表单验证规则
+  const rules = reactive({
+    title: [
+      {
+        required: true,
+        message: '请选择文章标题',
+        type: 'string',
+        trigger: 'blur'
+      }
+    ],
+    categoryId: [
+      {
+        required: true,
+        message: '请选择栏目',
+        type: 'number',
+        trigger: 'blur'
+      }
+    ],
+    content: [
+      {
+        required: true,
+        type: "string",
+        message: "请输入文章内容",
+        trigger: "blur",
+        validator: async (_rule: RuleObject, value: string) => {
+          if (content.value == "") {
+            return Promise.reject("请输入文字内容");
+          }
+          return Promise.resolve();
+        }
+      }
+    ],
+  });
+
+  // 选择栏目
+  const onCategoryId = (id: number) => {
+    console.log(id);
+    form.categoryId = id;
+  };
+
+  const { resetFields } = useForm(form, rules);
+
+  /* 保存编辑 */
+  const save = () => {
+    if (!formRef.value) {
+      return;
+    }
+    formRef.value
+      .validate()
+      .then(() => {
+        loading.value = true;
+        props.selection?.map(d => d.id)
+        updateBatchCmsLink({
+          ids: props.selection?.map(d => d.id),
+          data: {
+            categoryId: form.categoryId
+          }
+        }).then((msg) => {
+          message.success(msg);
+          loading.value = false;
+          updateVisible(false);
+          emit('done');
+        })
+          .catch((e) => {
+            message.error(e.message);
+          });
+      })
+      .catch(() => {});
+  };
+
+  watch(
+    () => props.visible,
+    (visible) => {
+      if (visible) {
+      } else {
+        resetFields();
+      }
+    },
+    { immediate: true }
+  );
+</script>

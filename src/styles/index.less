@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/** 全局样式 */
+@style-entry-file: as-needed;
+@import './@{style-entry-file}.less';
+@import './transition/index.less';
+@import "./component.less";
+
+// 主题
+@import 'ele-admin-pro/es/style/themes/dynamic.less';
+
+:root {
+  // 灰色主题
+  --grey-1: #1b1b1b;
+  --grey-2: #363636;
+  --grey-3: #4d4d4d;
+  --grey-4: #737373;
+  --grey-5: #a6a6a6;
+  --grey-6: #d9d9d9;
+  --grey-7: #e6e6e6;
+  --grey-8: #f2f2f2;
+  --grey-9: #f7f7f7;
+  --grey-10: #fafafa;
+}
+
+.ele-admin-theme-dark {
+  // 灰色主题
+  --grey-1: #fafafa;
+  --grey-2: #f7f7f7;
+  --grey-3: #f2f2f2;
+  --grey-4: #e6e6e6;
+  --grey-5: #d9d9d9;
+  --grey-6: #a6a6a6;
+  --grey-7: #737373;
+  --grey-8: #4d4d4d;
+  --grey-9: #363636;
+  --grey-10: #1b1b1b;
+}
