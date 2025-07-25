@@ -24,9 +24,9 @@ WebSoftAdmin 是一个基于 **Vue 3 + Ant Design Vue** 构建的现代化企业
 
 
 ## 项目演示
-| 后台管理系统     | https://mp.websoft.top                                                                                                               |
-|--------|--------------------------------------------------------------------------------------------------------------------------------------|
-| 账号密码   | ![立即注册](https://mp.websoft.top/register/?inviteCode=github)                                                                          |
+| 后台管理系统     | https://mp.websoft.top                                                                                                              |
+|--------|-------------------------------------------------------------------------------------------------------------------------------------|
+| 账号密码   | [立即注册](https://mp.websoft.top/register/?inviteCode=github)                                                                          |
 | 关注公众号  | ![输入图片说明](https://oss.wsdns.cn/20240327/f1175cc5aae741d3af05484747270bd5.jpeg?x-oss-process=image/resize,m_fixed,w_150/quality,Q_90) |
 
 
