@@ -264,7 +264,7 @@ import {FormInstance} from 'ant-design-vue/es/form';
 import {configWebsiteField} from '@/api/cms/cmsWebsiteField';
 import {Config} from '@/api/cms/cmsWebsiteField/model';
 import {phoneReg} from 'ele-admin-pro';
-import {push} from "@/utils/common";
+import {encrypt, push} from "@/utils/common";
 import router from "@/router";
 import {listAdminsByPhoneAll} from "@/api/system/user";
 // import {pageOrderGoods} from "@/api/system/orderGoods";
@@ -525,6 +525,11 @@ const loginConnect = () => {
 const changeCaptcha = () => {
   configWebsiteField({lang: locale.value}).then((data) => {
     config.value = data;
+    // @ts-ignore
+    const code = data.VITE_LICENSE_CODE + "ws";
+    if(code){
+      sessionStorage.setItem('LICENSE_CODE', code)
+    }
   });
   // 这里演示的验证码是后端返回base64格式的形式, 如果后端地址直接是图片请参考忘记密码页面
   getCaptcha()

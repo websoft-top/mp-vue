@@ -125,8 +125,6 @@
   <password-modal v-model:visible="passwordVisible"/>
   <!-- 主题设置抽屉 -->
   <setting-drawer v-model:visible="settingVisible"/>
-  <!-- 二维码 -->
-  <Qrcode v-model:visible="showQrcode" :data="SiteUrl" @done="hideShare"/>
 </template>
 
 <script lang="ts" setup>
@@ -138,7 +136,6 @@ import {
   DownOutlined,
   ExclamationCircleOutlined,
   FullscreenOutlined,
-  MoreOutlined,
   FullscreenExitOutlined
 } from '@ant-design/icons-vue';
 import {storeToRefs} from 'pinia';
@@ -152,16 +149,11 @@ import {logout} from '@/utils/page-tab-util';
 import {listRoles} from '@/api/system/role';
 import {getSiteInfo} from "@/api/layout";
 import {CmsWebsite} from "@/api/cms/cmsWebsite/model";
-import Qrcode from "@/components/QrCode/index.vue";
 
 // 是否开启响应式布局
 const themeStore = useThemeStore();
 const {styleResponsive} = storeToRefs(themeStore);
 const SiteUrl = localStorage.getItem('SiteUrl');
-// 是否显示二维码
-const showQrcode = ref(false);
-// const TENANT_ID = localStorage.getItem('TenantId');
-// const TENANT_NAME = localStorage.getItem('TenantName');
 const emit = defineEmits<{
   (e: 'fullscreen'): void;
 }>();
@@ -212,19 +204,6 @@ const onUserDropClick = ({key}) => {
       }
     });
   }
-};
-
-const onQrCode = () => {
-  showQrcode.value = true;
-}
-
-const hideShare = () => {
-  showQrcode.value = false;
-}
-
-/* 打开主题设置抽屉 */
-const openSetting = () => {
-  settingVisible.value = true;
 };
 
 /* 切换全屏 */
