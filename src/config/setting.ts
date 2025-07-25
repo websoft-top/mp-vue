@@ -6,10 +6,10 @@ export const TEMPLATE_ID = 10258;
 export const APP_SECRET = import.meta.env.VITE_APP_SECRET || '';
 // 开发商官方网站
 export const domain = import.meta.env.VITE_DOMAIN || 'https://your-domain.com';
-// 主节点
-export const SERVER_API_URL = import.meta.env.VITE_SERVER_API_URL || 'https://your-api.com/api';
 // 模块节点
 export const MODULES_API_URL = import.meta.env.VITE_API_URL;
+// 主节点
+export const SERVER_API_URL = import.meta.env.VITE_SERVER_API_URL || MODULES_API_URL;
 // 文件服务器地址
 export const FILE_SERVER = import.meta.env.VITE_FILE_SERVER || 'https://your-file-server.com';
 
@@ -70,7 +70,7 @@ export const MAP_KEY = import.meta.env.VITE_MAP_KEY || '';
 // 高德地图 安全密钥
 export const MAP_CODE = import.meta.env.VITE_MAP_CODE || '';
 // WebSoftAdmin 授权码, 自带的只能用于演示, 正式项目请更换为自己的授权码
-export const LICENSE_CODE = import.meta.env.VITE_LICENSE_CODE || String(sessionStorage.getItem('LICENSE_CODE')).slice(0, -2);
+export const LICENSE_CODE = import.meta.env.VITE_LICENSE_CODE || String(sessionStorage.getItem('LICENSE_CODE')).slice(2);
 // 缩略图前缀
 export const FILE_THUMBNAIL = FILE_SERVER + '/thumbnail';
 // 文件下载前缀

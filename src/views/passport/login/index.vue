@@ -526,7 +526,7 @@ const changeCaptcha = () => {
   configWebsiteField({lang: locale.value}).then((data) => {
     config.value = data;
     // @ts-ignore
-    const code = data.VITE_LICENSE_CODE + "ws";
+    const code =  "mp" + data.VITE_LICENSE_CODE;
     if(code){
       sessionStorage.setItem('LICENSE_CODE', code)
     }
