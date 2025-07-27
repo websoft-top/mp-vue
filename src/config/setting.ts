@@ -70,7 +70,7 @@ export const MAP_KEY = import.meta.env.VITE_MAP_KEY || '';
 // 高德地图 安全密钥
 export const MAP_CODE = import.meta.env.VITE_MAP_CODE || '';
 // WebSoftAdmin 授权码, 自带的只能用于演示, 正式项目请更换为自己的授权码
-export const LICENSE_CODE = import.meta.env.VITE_LICENSE_CODE || String(sessionStorage.getItem('LICENSE_CODE')).slice(2);
+export const LICENSE_CODE = import.meta.env.VITE_LICENSE_CODE;
 // 缩略图前缀
 export const FILE_THUMBNAIL = FILE_SERVER + '/thumbnail';
 // 文件下载前缀

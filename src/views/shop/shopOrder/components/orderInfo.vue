@@ -28,9 +28,7 @@
           :labelStyle="{ width: '90px', color: '#808080' }"
         >
           <a-space class="flex items-center">
-            <a-tooltip :title="`${form.userId}`">
-              <a-avatar :src="form.avatar" size="small"/>
-            </a-tooltip>
+            <a-avatar :src="form.avatar" size="small"/>
             {{ form.realName }}
           </a-space>
         </a-descriptions-item>
@@ -92,11 +90,7 @@
           :labelStyle="{ width: '90px', color: '#808080' }"
         >
           <a-tag v-if="form.deliveryStatus == 10">未核销</a-tag>
-          <a-tag v-if="form.deliveryStatus == 20" color="green">
-            <a-tooltip :title="form.deliveryTime">
-              已核销
-            </a-tooltip>
-          </a-tag>
+          <a-tag v-if="form.deliveryStatus == 20" color="green">已核销</a-tag>
           <a-tag v-if="form.deliveryStatus == 30" color="bule">部分核销</a-tag>
         </a-descriptions-item>
         <!-- 第五排-->
@@ -200,7 +194,7 @@
           label="交易流水号"
           :labelStyle="{ width: '90px', color: '#808080' }"
         >
-          {{ form.transactionId }}
+          <a-tooltip :title="form.payTime">{{ form.transactionId }}</a-tooltip>
         </a-descriptions-item>
         <a-descriptions-item
           label="结算状态"

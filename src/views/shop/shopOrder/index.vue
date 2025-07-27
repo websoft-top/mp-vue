@@ -18,7 +18,6 @@
             @search="reload"
             :selection="selection"
             @add="openEdit"
-            @remove="removeBatch"
             @batchMove="openMove"
           />
         </template>
@@ -31,14 +30,14 @@
             <div v-else class="text-gray-600">{{ record.phone }}</div>
           </template>
           <template v-if="column.key === 'payType'">
-              <template v-for="item in getPayType()">
-                <template v-if="record.payStatus == 1">
-                  <span v-if="item.value == record.payType">{{ item.label }}</span>
-                </template>
-                <template v-else>
-                  <span></span>
-                </template>
+            <template v-for="item in getPayType()">
+              <template v-if="record.payStatus == 1">
+                <span v-if="item.value == record.payType">{{ item.label }}</span>
               </template>
+              <template v-else>
+                <span></span>
+              </template>
+            </template>
           </template>
           <template v-if="column.key === 'payStatus'">
             <a-tag v-if="record.payStatus == 1" color="green" @click="updatePayStatus(record)">已付款</a-tag>
@@ -110,10 +109,11 @@ import Extra from "@/views/bszx/extra.vue";
 import {pageBszxOrder} from "@/api/bszx/bszxOrder";
 import OrderInfo from './components/orderInfo.vue';
 import {ShopOrder, ShopOrderParam} from "@/api/shop/shopOrder/model";
-import {repairOrder, updateShopOrder} from "@/api/shop/shopOrder";
+import {updateShopOrder} from "@/api/shop/shopOrder";
 import {message} from "ant-design-vue";
 import {updateUser} from "@/api/system/user";
 import {getPayType} from '@/utils/shop';
+import {repairOrder} from "@/api/bszx/bszxPay";
 
 // 表格实例
 const tableRef = ref<InstanceType<typeof EleProTable> | null>(null);
@@ -156,18 +156,6 @@ const columns = ref<ColumnItem[]>([
     key: 'orderNo',
     align: 'center',
     width: 200,
-  },
-  {
-    title: '姓名',
-    dataIndex: 'realName',
-    key: 'realName',
-    align: 'center'
-  },
-  {
-    title: '手机号码',
-    dataIndex: 'phone',
-    key: 'phone',
-    align: 'center'
   },
   {
     title: '实付金额',
@@ -259,16 +247,16 @@ const openMove = () => {
  * 修复订单支付状态
  */
 const updatePayStatus = (record: ShopOrder) => {
-  // 修复订单数据
-  repairOrder({
-    ...record
+  // 修复订单
+  repairOrder(record).then(() => {
+    message.success('修复成功');
   }).then(() => {
-    if(!record.realName){
+    if(record.realName == '' || record.realName == undefined){
       // 更新用户真实姓名
       updateUser({
         userId: record.userId,
         realName: record.realName
-      }).then(() => {})
+      })
     }
     reload();
   })

@@ -224,7 +224,6 @@ const loadStatistics = async () => {
   const users = await pageUsers({})
   const orders = await pageShopOrder({})
   if(users){
-    console.log(users.count)
     statistics.value.userCount = users.count
   }
   if(orders){

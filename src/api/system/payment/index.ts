@@ -2,7 +2,7 @@ import request from '@/utils/request';
 import type { ApiResult, PageResult } from '@/api';
 import type { Payment, PaymentParam } from './model';
 import { SERVER_API_URL } from '@/config/setting';
-import type { Order } from '@/api/shop/order/model';
+import type { ShopOrder } from '@/api/shop/shopOrder/model';
 
 /**
  * 分页查询支付方式
@@ -109,7 +109,7 @@ export async function getPayment(id: number) {
 /**
  * 生成支付二维码(微信native)
  */
-export async function getNativeCode(data: Order) {
+export async function getNativeCode(data: ShopOrder) {
   const res = await request.post<ApiResult<unknown>>(
     SERVER_API_URL + '/system/wx-native-pay/codeUrl',
     data
@@ -119,3 +119,30 @@ export async function getNativeCode(data: Order) {
   }
   return Promise.reject(new Error(res.data.message));
 }
+
+/**
+ * 获取微信证书健康状态
+ */
+export async function certHealth(){
+  const res = await request.get<ApiResult<unknown>>(
+    '/system/certificate/health'
+  );
+  if (res.data.code === 0 && res.data.data) {
+    return res.data.data;
+  }
+  return Promise.reject(new Error(res.data.message));
+}
+
+/**
+ * 测试微信证书
+ */
+export async function wechatCertTest(){
+  const res = await request.get<ApiResult<unknown>>(
+    '/wechat-cert-test/instructions'
+  );
+  if (res.data.code === 0 && res.data.data) {
+    return res.data.data;
+  }
+  return Promise.reject(new Error(res.data.message));
+}
+

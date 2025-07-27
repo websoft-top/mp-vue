@@ -77,7 +77,7 @@
     pagePayment,
     removePayment,
     removeBatchPayment,
-    updatePayment
+    updatePayment, certHealth, wechatCertTest
   } from '@/api/system/payment';
   import type { Payment, PaymentParam } from '@/api/system/payment/model';
 
@@ -225,6 +225,12 @@
   /* 查询 */
   const query = () => {
     loading.value = true;
+    certHealth().then((data) => {
+      console.log(data,'微信支付证书健康状态')
+    })
+    wechatCertTest().then((data) => {
+      console.log(data,'微信支付证书测试')
+    })
   };
 
   /* 自定义行属性 */

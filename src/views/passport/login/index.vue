@@ -121,7 +121,7 @@
           >
             {{ loading ? t('login.loading') : t('login.login') }}
           </a-button>
-<!--          <div class="register text-center pt-5"><a @click="push('/register')">免费注册</a></div>-->
+          <!--          <div class="register text-center pt-5"><a @click="push('/register')">免费注册</a></div>-->
         </a-form-item>
       </template>
       <template v-if="loginType === 'sms'">
@@ -166,7 +166,7 @@
           >
             {{ loading ? t('login.loading') : t('login.login') }}
           </a-button>
-<!--          <div class="register text-center pt-5"><a @click="push('/register')">免费注册</a></div>-->
+          <!--          <div class="register text-center pt-5"><a @click="push('/register')">免费注册</a></div>-->
         </a-form-item>
       </template>
       <template v-if="loginType == 'scan'">
@@ -261,26 +261,20 @@ import {TEMPLATE_ID, THEME_STORE_NAME} from '@/config/setting';
 import {sendSmsCaptcha} from '@/api/passport/login';
 import useFormData from '@/utils/use-form-data';
 import {FormInstance} from 'ant-design-vue/es/form';
-import {configWebsiteField} from '@/api/cms/cmsWebsiteField';
 import {Config} from '@/api/cms/cmsWebsiteField/model';
 import {phoneReg} from 'ele-admin-pro';
-import {encrypt, push} from "@/utils/common";
 import router from "@/router";
 import {listAdminsByPhoneAll} from "@/api/system/user";
-// import {pageOrderGoods} from "@/api/system/orderGoods";
-// import {push} from "@/utils/common";
 
 const useForm = Form.useForm;
 const {currentRoute} = useRouter();
 const {t} = useI18n();
-const {locale} = useI18n();
 
 // 登录框方向, 0 居中, 1 居右, 2 居左
 const direction = ref(0);
 // 加载状态
 const loading = ref(false);
 // 是否显示tenantId填写输入框
-const showTenantId = ref(true);
 const loginType = ref('sms');
 const config = ref<Config>();
 // 配置信息
@@ -465,7 +459,7 @@ const submit = () => {
       form.phone = undefined;
       login(form)
         .then((msg) => {
-          if(msg == '请选择登录用户'){
+          if (msg == '请选择登录用户') {
             showSelectLoginUser.value = true;
             return false;
           }
@@ -502,9 +496,9 @@ const onLoginType = (text) => {
 };
 
 const onScan = () => {
-  if(loginType.value == 'scan'){
+  if (loginType.value == 'scan') {
     loginType.value = 'sms'
-  }else {
+  } else {
     loginType.value = 'scan'
   }
 }
@@ -523,14 +517,6 @@ const loginConnect = () => {
 
 /* 获取图形验证码 */
 const changeCaptcha = () => {
-  configWebsiteField({lang: locale.value}).then((data) => {
-    config.value = data;
-    // @ts-ignore
-    const code =  "mp" + data.VITE_LICENSE_CODE;
-    if(code){
-      sessionStorage.setItem('LICENSE_CODE', code)
-    }
-  });
   // 这里演示的验证码是后端返回base64格式的形式, 如果后端地址直接是图片请参考忘记密码页面
   getCaptcha()
     .then((data) => {
@@ -553,9 +539,9 @@ loginConnect();
 watch(
   router.currentRoute,
   (data) => {
-    if(data.query?.loginPhone){
+    if (data.query?.loginPhone) {
       form.phone = `${data.query?.loginPhone}`;
-    }else {
+    } else {
       localStorage.clear();
     }
   },
