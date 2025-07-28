@@ -8,7 +8,7 @@ import {
 } from '@/api/system/chat';
 import { emitter } from '@/utils/common';
 
-const SOCKET_URL: string = 'wss://server.gxwebsoft.com';
+const SOCKET_URL: string = 'wss://server.websoft.top';
 
 interface ConnectionOptions {
   token: string;

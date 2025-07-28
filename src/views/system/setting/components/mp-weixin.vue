@@ -27,9 +27,9 @@
       </div>
       <a-form-item label="request合法域名" name="request">
         <a-input-group compact>
-          <a-input :value="`https://server.gxwebsoft.com;https://cms-api.websoft.top;`" placeholder="请输入小程序AppSecret" style="width: calc(100% - 50px)" />
+          <a-input :value="`https://server.websoft.top;https://cms-api.websoft.top;`" placeholder="请输入小程序AppSecret" style="width: calc(100% - 50px)" />
           <a-tooltip title="复制">
-            <a-button @click="onCopyText(`https://server.gxwebsoft.com;https://cms-api.websoft.top;`)">
+            <a-button @click="onCopyText(`https://server.websoft.top;https://cms-api.websoft.top;`)">
               <template #icon><CopyOutlined /></template>
             </a-button>
           </a-tooltip>
@@ -37,9 +37,9 @@
       </a-form-item>
       <a-form-item label="socket合法域名" name="socket">
         <a-input-group compact>
-          <a-input :value="`wss://server.gxwebsoft.com`" placeholder="请输入小程序AppSecret" style="width: calc(100% - 50px)" />
+          <a-input :value="`wss://server.websoft.top`" placeholder="请输入小程序AppSecret" style="width: calc(100% - 50px)" />
           <a-tooltip title="复制">
-            <a-button @click="onCopyText(`wss://server.gxwebsoft.com`)">
+            <a-button @click="onCopyText(`wss://server.websoft.top`)">
               <template #icon><CopyOutlined /></template>
             </a-button>
           </a-tooltip>

@@ -44,12 +44,12 @@
       <a-form-item label="网页授权域名" name="authorize">
         <a-input-group compact>
           <a-input
-            :value="`https://server.gxwebsoft.com`"
+            :value="`https://server.websoft.top`"
             placeholder="请输入网页授权域名"
             style="width: calc(100% - 50px)"
           />
           <a-tooltip title="复制">
-            <a-button @click="onCopyText(`https://server.gxwebsoft.com`)">
+            <a-button @click="onCopyText(`https://server.websoft.top`)">
               <template #icon><CopyOutlined /></template>
             </a-button>
           </a-tooltip>

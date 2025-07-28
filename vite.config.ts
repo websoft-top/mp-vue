@@ -20,7 +20,7 @@ export default defineConfig(({ command }) => {
     },
     // server: {
     //   proxy: {
-    //     '/api': 'https://server.gxwebsoft.com'
+    //     '/api': 'https://server.websoft.top'
     //   }
     // },
     plugins: [
