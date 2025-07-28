@@ -31,7 +31,7 @@
       <div class="login-title flex justify-center items-center px-12">
         <template v-if="loginType === 'scan'">
           <h4
-            class="title-btn"
+            class="title-btn active"
           >扫码登录</h4
           >
         </template>
@@ -170,7 +170,10 @@
         </a-form-item>
       </template>
       <template v-if="loginType == 'scan'">
-        二维码
+        <div class="flex flex-col justify-center items-center p-2 mb-10">
+          <ele-qr-code-svg :value="`https://account.aliyun.com/login/login.htm?spm=5176.30371578.J_4VYgf18xNlTAyFFbOuOQe.d_login_1.e939154aEpYiQh&oauth_callback=https%3A%2F%2Fwww.aliyun.com%2F`" :size="170" />
+          <div class="py-2 text-gray-400">使用微信扫一扫</div>
+        </div>
       </template>
     </a-form>
     <div class="login-copyright">
@@ -265,11 +268,13 @@ import {Config} from '@/api/cms/cmsWebsiteField/model';
 import {phoneReg} from 'ele-admin-pro';
 import router from "@/router";
 import {listAdminsByPhoneAll} from "@/api/system/user";
+import {configWebsiteField} from "@/api/cms/cmsWebsiteField";
+
 
 const useForm = Form.useForm;
 const {currentRoute} = useRouter();
 const {t} = useI18n();
-
+const {locale} = useI18n();
 // 登录框方向, 0 居中, 1 居右, 2 居左
 const direction = ref(0);
 // 加载状态
@@ -376,7 +381,7 @@ const sendCode = () => {
     return;
   }
   codeLoading.value = true;
-  sendSmsCaptcha({phone: form.phone}).then((res) => {
+  sendSmsCaptcha({phone: form.phone}).then(() => {
     message.success('短信验证码发送成功, 请注意查收!');
     visible.value = false;
     codeLoading.value = false;
@@ -516,7 +521,7 @@ const loginConnect = () => {
 };
 
 /* 获取图形验证码 */
-const changeCaptcha = () => {
+const changeCaptcha = async () => {
   // 这里演示的验证码是后端返回base64格式的形式, 如果后端地址直接是图片请参考忘记密码页面
   getCaptcha()
     .then((data) => {
@@ -530,6 +535,10 @@ const changeCaptcha = () => {
     .catch((e) => {
       message.error(e.message);
     });
+  const fields = await configWebsiteField({lang: locale.value})
+  if (fields) {
+    config.value = fields;
+  }
 };
 
 // 首次加载
@@ -600,6 +609,7 @@ watch(
 
   .title-btn {
     cursor: pointer;
+    font-weight: 600;
   }
 
   .login-title {
